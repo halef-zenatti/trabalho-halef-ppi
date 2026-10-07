@@ -1,91 +1,377 @@
 {% extends "base.html" %}
 
-{% block title %}Novo usuário | {{ app_name }}{% endblock %}
-{% block topbar_title %}Novo usuário{% endblock %}
+{% block title %}
+    Novo usuário | {{ Gestoq }}
+{% endblock %}
+
+
+{% block topbar_title %}
+    Novo usuário
+{% endblock %}
+
 
 {% block content %}
+
 <div class="page-header">
+
     <div>
-        <h1 class="page-title">Cadastro de usuário</h1>
-        <p class="page-description">Preencha os dados pessoais, perfil e endereço.</p>
+
+        <h1 class="page-title">
+            Cadastro de usuário
+        </h1>
+
+        <p class="page-description">
+            Preencha os dados pessoais, perfil e endereço.
+        </p>
+
     </div>
-    <a href="{{ url_for('listar_usuarios') }}" class="btn btn-outline-secondary">
-        <i class="bi bi-arrow-left me-1"></i>Voltar
-    </a>
+
+
+    {% if session.get('usuario_id') %}
+
+        <a
+            href="{{ url_for('listar_usuarios') }}"
+            class="btn btn-outline-secondary"
+        >
+
+            <i class="bi bi-arrow-left me-1"></i>
+
+            Voltar
+
+        </a>
+
+    {% else %}
+
+        <a
+            href="{{ url_for('login') }}"
+            class="btn btn-outline-secondary"
+        >
+
+            <i class="bi bi-arrow-left me-1"></i>
+
+            Voltar para o login
+
+        </a>
+
+    {% endif %}
+
 </div>
 
-<form method="post" class="app-card overflow-hidden">
+
+<form
+    method="post"
+    class="app-card overflow-hidden"
+>
+
+
+    <!-- ================================================= -->
+    <!-- DADOS PESSOAIS                                    -->
+    <!-- ================================================= -->
+
     <div class="form-section">
+
         <div class="form-section-title">
-            <span class="section-icon"><i class="bi bi-person"></i></span>
-            <span><strong>Dados pessoais</strong><small>Informações básicas do usuário</small></span>
+
+            <span class="section-icon">
+                <i class="bi bi-person"></i>
+            </span>
+
+            <span>
+
+                <strong>
+                    Dados pessoais
+                </strong>
+
+                <small>
+                    Informações básicas do usuário
+                </small>
+
+            </span>
+
         </div>
 
+
         <div class="row g-3">
+
+
             <div class="col-md-6">
-                <label class="form-label">Nome <span class="required">*</span></label>
-                <input name="nome" class="form-control" required value="{{ dados.get('nome', '') }}">
+
+                <label class="form-label">
+                    Nome
+                    <span class="required">*</span>
+                </label>
+
+                <input
+                    name="nome"
+                    class="form-control"
+                    required
+                    value="{{ dados.get('nome', '') }}"
+                >
+
             </div>
+
+
             <div class="col-md-6">
-                <label class="form-label">E-mail <span class="required">*</span></label>
-                <input name="email" type="email" class="form-control" required value="{{ dados.get('email', '') }}">
+
+                <label class="form-label">
+                    E-mail
+                    <span class="required">*</span>
+                </label>
+
+                <input
+                    name="email"
+                    type="email"
+                    class="form-control"
+                    required
+                    value="{{ dados.get('email', '') }}"
+                >
+
             </div>
+
+
             <div class="col-md-4">
-                <label class="form-label">Telefone</label>
-                <input name="telefone" class="form-control" value="{{ dados.get('telefone', '') }}">
+
+                <label class="form-label">
+                    Telefone
+                </label>
+
+                <input
+                    name="telefone"
+                    class="form-control"
+                    value="{{ dados.get('telefone', '') }}"
+                >
+
             </div>
+
+
             <div class="col-md-4">
-                <label class="form-label">Perfil <span class="required">*</span></label>
-                <select name="perfil" class="form-select" required>
-                    <option value="">Selecione...</option>
-                    <option value="usuario" {% if dados.get('perfil') == 'usuario' %}selected{% endif %}>Usuário</option>
-                    <option value="gestor" {% if dados.get('perfil') == 'gestor' %}selected{% endif %}>Gestor</option>
+
+                <label class="form-label">
+                    Perfil
+                    <span class="required">*</span>
+                </label>
+
+                <select
+                    name="perfil"
+                    class="form-select"
+                    required
+                >
+
+                    <option value="">
+                        Selecione...
+                    </option>
+
+
+                    <option
+                        value="usuario"
+                        {% if dados.get('perfil') == 'usuario' %}
+                            selected
+                        {% endif %}
+                    >
+                        Usuário
+                    </option>
+
+
+                    <option
+                        value="gestor"
+                        {% if dados.get('perfil') == 'gestor' %}
+                            selected
+                        {% endif %}
+                    >
+                        Gestor
+                    </option>
+
                 </select>
+
             </div>
+
+
             <div class="col-md-4">
-                <label class="form-label">Data de nascimento</label>
-                <input name="data_nascimento" type="date" class="form-control" value="{{ dados.get('data_nascimento', '') }}">
+
+                <label class="form-label">
+                    Data de nascimento
+                </label>
+
+                <input
+                    name="data_nascimento"
+                    type="date"
+                    class="form-control"
+                    value="{{ dados.get('data_nascimento', '') }}"
+                >
+
             </div>
+
         </div>
+
     </div>
+
+
+    <!-- ================================================= -->
+    <!-- ENDEREÇO                                          -->
+    <!-- ================================================= -->
 
     <div class="form-section border-top">
+
         <div class="form-section-title">
-            <span class="section-icon"><i class="bi bi-geo-alt"></i></span>
-            <span><strong>Endereço</strong><small>Informações de localização</small></span>
+
+            <span class="section-icon">
+                <i class="bi bi-geo-alt"></i>
+            </span>
+
+            <span>
+
+                <strong>
+                    Endereço
+                </strong>
+
+                <small>
+                    Informações de localização
+                </small>
+
+            </span>
+
         </div>
+
 
         <div class="row g-3">
+
+
             <div class="col-md-3">
-                <label class="form-label">CEP</label>
-                <input name="cep" class="form-control" value="{{ dados.get('cep', '') }}">
+
+                <label class="form-label">
+                    CEP
+                </label>
+
+                <input
+                    name="cep"
+                    class="form-control"
+                    value="{{ dados.get('cep', '') }}"
+                >
+
             </div>
+
+
             <div class="col-md-7">
-                <label class="form-label">Endereço</label>
-                <input name="endereco" class="form-control" value="{{ dados.get('endereco', '') }}">
+
+                <label class="form-label">
+                    Endereço
+                </label>
+
+                <input
+                    name="endereco"
+                    class="form-control"
+                    value="{{ dados.get('endereco', '') }}"
+                >
+
             </div>
+
+
             <div class="col-md-2">
-                <label class="form-label">Número</label>
-                <input name="numero" class="form-control" value="{{ dados.get('numero', '') }}">
+
+                <label class="form-label">
+                    Número
+                </label>
+
+                <input
+                    name="numero"
+                    class="form-control"
+                    value="{{ dados.get('numero', '') }}"
+                >
+
             </div>
+
+
             <div class="col-md-4">
-                <label class="form-label">Complemento</label>
-                <input name="complemento" class="form-control" value="{{ dados.get('complemento', '') }}">
+
+                <label class="form-label">
+                    Complemento
+                </label>
+
+                <input
+                    name="complemento"
+                    class="form-control"
+                    value="{{ dados.get('complemento', '') }}"
+                >
+
             </div>
+
+
             <div class="col-md-5">
-                <label class="form-label">Cidade</label>
-                <input name="cidade" class="form-control" value="{{ dados.get('cidade', '') }}">
+
+                <label class="form-label">
+                    Cidade
+                </label>
+
+                <input
+                    name="cidade"
+                    class="form-control"
+                    value="{{ dados.get('cidade', '') }}"
+                >
+
             </div>
+
+
             <div class="col-md-3">
-                <label class="form-label">Estado</label>
-                <input name="estado" maxlength="2" class="form-control text-uppercase" value="{{ dados.get('estado', '') }}">
+
+                <label class="form-label">
+                    Estado
+                </label>
+
+                <input
+                    name="estado"
+                    maxlength="2"
+                    class="form-control text-uppercase"
+                    value="{{ dados.get('estado', '') }}"
+                >
+
             </div>
+
         </div>
+
     </div>
 
+
+    <!-- ================================================= -->
+    <!-- AÇÕES                                             -->
+    <!-- ================================================= -->
+
     <div class="form-actions">
-        <a href="{{ url_for('listar_usuarios') }}" class="btn btn-light border">Cancelar</a>
-        <button class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Cadastrar usuário</button>
+
+
+        {% if session.get('usuario_id') %}
+
+            <a
+                href="{{ url_for('listar_usuarios') }}"
+                class="btn btn-light border"
+            >
+                Cancelar
+            </a>
+
+        {% else %}
+
+            <a
+                href="{{ url_for('login') }}"
+                class="btn btn-light border"
+            >
+                Cancelar
+            </a>
+
+        {% endif %}
+
+
+        <button
+            type="submit"
+            class="btn btn-primary"
+        >
+
+            <i class="bi bi-check-lg me-1"></i>
+
+            Cadastrar usuário
+
+        </button>
+
     </div>
+
 </form>
+
 {% endblock %}

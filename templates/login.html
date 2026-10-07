@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Login | {{ app_name }}{% endblock %}
+{% block title %}Login | {{ Gestoq }}{% endblock %}
 
 {% block auth_content %}
 <div class="login-page">
@@ -10,11 +10,10 @@
                 <i class="bi bi-box-seam"></i>
             </span>
 
-            <div class="login-kicker">SISTEMA DE GESTÃO</div>
-            <h1>Seu estoque sob controle.</h1>
+            <div class="login-kicker">Gestoq</div>
+            <h1>Gestão de estoque.</h1>
             <p>
-                Cadastre produtos, acompanhe quantidades e organize os usuários
-                em uma interface administrativa moderna.
+                Acompanhe seu estoque de forma inteligente.
             </p>
 
             <div class="login-features">
@@ -33,7 +32,7 @@
                 </span>
                 <h2 class="h3 mt-3 mb-1">Bem-vindo de volta</h2>
                 <p class="text-secondary small mb-0">
-                    Entre com seus dados para acessar o sistema.
+                    Entre com seus dados de acesso.
                 </p>
             </div>
 
@@ -60,10 +59,10 @@
                     Entrar <i class="bi bi-arrow-right ms-1"></i>
                 </button>
             </form>
-
-            <div class="login-note mt-4">
-                <i class="bi bi-info-circle"></i>
-                <span>Template didático: cadastre primeiro um usuário para testar o login.</span>
+            <div class="text-center mt-4"> 
+                <p class="text-secondary small mb-2"> Ainda não possui uma conta? </p> 
+                <a href="{{ url_for('cadastrar_usuario') }}" class="btn btn-outline-primary w-100"> 
+                    <i class="bi bi-person-plus me-1"></i> Cadastrar novo usuário </a> 
             </div>
         </div>
     </section>

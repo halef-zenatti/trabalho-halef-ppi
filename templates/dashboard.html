@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}Dashboard | {{ app_name }}{% endblock %}
+{% block title %}Dashboard | {{ Gestoq }}{% endblock %}
 {% block topbar_title %}Dashboard{% endblock %}
 
 {% block content %}
 <div class="page-header">
     <div>
         <h1 class="page-title">Visão geral</h1>
-        <p class="page-description">Acompanhe os principais indicadores do estoque.</p>
+        <p class="page-description">Acompanhe o estoque.</p>
     </div>
 </div>
 
@@ -71,7 +71,7 @@
             <div class="app-card-header">
                 <div>
                     <h2 class="app-card-title">Ações rápidas</h2>
-                    <p class="app-card-subtitle">Acesse as operações mais utilizadas.</p>
+                    <p class="app-card-subtitle">Gostaria de fazer algo?</p>
                 </div>
             </div>
             <div class="app-card-body">
@@ -85,19 +85,19 @@
                     <div class="col-md-6">
                         <a class="quick-action" href="{{ url_for('saida_produto') }}">
                             <span class="quick-action-icon"><i class="bi bi-box-arrow-right"></i></span>
-                            <span><strong>Registrar saída</strong><small>Retirar quantidade do estoque</small></span>
+                            <span><strong>Registrar saída</strong><small>Registre a saída de produtos</small></span>
                         </a>
                     </div>
                     <div class="col-md-6">
                         <a class="quick-action" href="{{ url_for('cadastrar_usuario') }}">
                             <span class="quick-action-icon"><i class="bi bi-person-plus"></i></span>
-                            <span><strong>Novo usuário</strong><small>Cadastrar acesso ao sistema</small></span>
+                            <span><strong>Novo usuário</strong><small>Cadastro</small></span>
                         </a>
                     </div>
                     <div class="col-md-6">
                         <a class="quick-action" href="{{ url_for('listar_produtos') }}">
                             <span class="quick-action-icon"><i class="bi bi-list-ul"></i></span>
-                            <span><strong>Ver produtos</strong><small>Consultar estoque atual</small></span>
+                            <span><strong>Ver produtos</strong><small>Consultar estoque</small></span>
                         </a>
                     </div>
                 </div>
