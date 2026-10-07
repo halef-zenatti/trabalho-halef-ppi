@@ -1,6 +1,6 @@
-# StockFlow — Gestão de Estoque com Flask
+# Gestoq — Gestão de Estoque 
 
-Template completo de um sistema web de gestão de estoque para estudos e evolução.
+Template gestão de estoque
 
 ## Tecnologias
 
@@ -20,8 +20,6 @@ Template completo de um sistema web de gestão de estoque para estudos e evoluç
 - Sessão Flask.
 - Logout.
 - Proteção das páginas internas com `login_required`.
-
-> A senha está simplificada neste template didático. Para produção, utilize hash com `werkzeug.security`.
 
 ### Usuários
 - Cadastro.
@@ -49,9 +47,6 @@ Template completo de um sistema web de gestão de estoque para estudos e evoluç
 - Bloqueio de saída superior ao estoque.
 
 ## Interface
-
-A interface foi criada com Bootstrap 5 e Bootstrap Icons e possui:
-
 - Dashboard administrativo.
 - Sidebar profissional.
 - Topbar.
@@ -62,70 +57,6 @@ A interface foi criada com Bootstrap 5 e Bootstrap Icons e possui:
 - Estados vazios.
 - Tela de login em duas colunas.
 - Responsividade para telas menores.
-
-### Alternar sidebar/topnav
-
-Em `templates/base.html`:
-
-```jinja2
-{% set layout = 'sidebar' %}
-```
-
-Use:
-
-```jinja2
-{% set layout = 'topnav' %}
-```
-
-para utilizar o menu superior.
-
-As rotas continuam sendo as mesmas.
-
-## Rotas
-
-| URL | Função |
-|---|---|
-| `/login` | Login |
-| `/logout` | Logout |
-| `/dashboard` | Dashboard |
-| `/usuarios` | Listar usuários |
-| `/usuarios/novo` | Cadastrar usuário |
-| `/produtos` | Listar produtos |
-| `/produtos/novo` | Cadastrar produto |
-| `/produtos/saida` | Registrar saída |
-
-A navegação usa `url_for()`:
-
-```jinja2
-<a href="{{ url_for('listar_produtos') }}">Produtos</a>
-```
-
-## Estrutura
-
-```text
-gestao_estoque_flask/
-├── app.py
-├── requirements.txt
-├── .gitignore
-├── README.md
-├── templates/
-│   ├── base.html
-│   ├── login.html
-│   ├── dashboard.html
-│   ├── layouts/
-│   │   ├── _sidebar.html
-│   │   └── _topnav.html
-│   ├── usuarios/
-│   │   ├── cadastro.html
-│   │   └── listar.html
-│   └── produtos/
-│       ├── cadastro.html
-│       ├── listar.html
-│       └── saida.html
-└── static/
-    └── css/
-        └── style.css
-```
 
 ## Instalação
 
@@ -160,7 +91,7 @@ O banco `estoque.db` é criado automaticamente.
 1. Abra o sistema.
 2. Cadastre um usuário diretamente pela aplicação.
 3. Use o e-mail cadastrado na tela de login.
-4. Para este template didático, qualquer senha não vazia é aceita.
+4. Qualquer senha não vazia é aceita.
 
 ## Git
 
@@ -172,16 +103,3 @@ git branch -M main
 git remote add origin https://github.com/SEU_USUARIO/gestao-estoque-flask.git
 git push -u origin main
 ```
-
-## Melhorias recomendadas para produção
-
-- Hash de senha.
-- Controle de autorização por perfil.
-- Flask-WTF e CSRF.
-- Blueprints.
-- Flask-Migrate.
-- Histórico de movimentações.
-- Edição/exclusão.
-- Testes automatizados.
-- Variáveis de ambiente.
-- Deploy com servidor WSGI.
