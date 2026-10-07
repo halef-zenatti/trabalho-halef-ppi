@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{{ app_name }}{% endblock %}</title>
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+
+{% if session.get('usuario_id') %}
+
+    {# Escolha: sidebar = menu lateral / topnav = menu superior #}
+    {% set layout = 'sidebar' %}
+
+    {% if layout == 'sidebar' %}
+        {% include 'layouts/_sidebar.html' %}
+        <div class="main-area">
+            <header class="topbar">
+                <div>
+                    <div class="topbar-title">{% block topbar_title %}{{ app_name }}{% endblock %}</div>
+                    <div class="topbar-subtitle">{{ app_subtitle }}</div>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="topbar-user">
+                        <span class="topbar-avatar">
+                            {{ usuario_logado[0]|upper if usuario_logado else "U" }}
+                        </span>
+                        <span class="d-none d-sm-inline">{{ usuario_logado }}</span>
+                    </span>
+                </div>
+            </header>
+    {% else %}
+        {% include 'layouts/_topnav.html' %}
+        <div class="main-area">
+    {% endif %}
+
+        <main class="page-content">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show shadow-sm" role="alert">
+                            <i class="bi bi-info-circle me-2"></i>{{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+{% else %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="login-alerts">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} shadow-sm">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    {% block auth_content %}{% endblock %}
+
+{% endif %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

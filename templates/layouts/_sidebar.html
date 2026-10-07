@@ -1,0 +1,60 @@
+<aside class="sidebar">
+    <div class="sidebar-brand">
+        <span class="brand-mark"><i class="bi bi-box-seam"></i></span>
+        <span>
+            <strong>{{ app_name }}</strong>
+            <small>{{ app_subtitle }}</small>
+        </span>
+    </div>
+
+    <div class="sidebar-section-title">Principal</div>
+    <nav class="nav flex-column">
+        <a class="nav-link {% if request.endpoint == 'dashboard' %}active{% endif %}"
+           href="{{ url_for('dashboard') }}">
+            <i class="bi bi-grid-1x2"></i><span>Dashboard</span>
+        </a>
+    </nav>
+
+    <div class="sidebar-section-title">Usuários</div>
+    <nav class="nav flex-column">
+        <a class="nav-link {% if request.endpoint == 'listar_usuarios' %}active{% endif %}"
+           href="{{ url_for('listar_usuarios') }}">
+            <i class="bi bi-people"></i><span>Usuários</span>
+        </a>
+        <a class="nav-link {% if request.endpoint == 'cadastrar_usuario' %}active{% endif %}"
+           href="{{ url_for('cadastrar_usuario') }}">
+            <i class="bi bi-person-plus"></i><span>Novo usuário</span>
+        </a>
+    </nav>
+
+    <div class="sidebar-section-title">Estoque</div>
+    <nav class="nav flex-column">
+        <a class="nav-link {% if request.endpoint == 'listar_produtos' %}active{% endif %}"
+           href="{{ url_for('listar_produtos') }}">
+            <i class="bi bi-box-seam"></i><span>Produtos</span>
+        </a>
+        <a class="nav-link {% if request.endpoint == 'cadastrar_produto' %}active{% endif %}"
+           href="{{ url_for('cadastrar_produto') }}">
+            <i class="bi bi-plus-square"></i><span>Novo produto</span>
+        </a>
+        <a class="nav-link {% if request.endpoint == 'saida_produto' %}active{% endif %}"
+           href="{{ url_for('saida_produto') }}">
+            <i class="bi bi-box-arrow-right"></i><span>Saída de produto</span>
+        </a>
+    </nav>
+
+    <div class="sidebar-footer">
+        <div class="user-mini">
+            <div class="user-avatar">
+                {{ usuario_logado[0]|upper if usuario_logado else "U" }}
+            </div>
+            <div class="min-w-0">
+                <div class="user-mini-name text-truncate">{{ usuario_logado }}</div>
+                <div class="user-mini-role">{{ usuario_perfil|perfil }}</div>
+            </div>
+        </div>
+        <a href="{{ url_for('logout') }}" class="btn btn-outline-light btn-sm w-100">
+            <i class="bi bi-box-arrow-right me-1"></i>Sair
+        </a>
+    </div>
+</aside>

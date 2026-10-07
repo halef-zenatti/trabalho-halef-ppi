@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | {{ app_name }}{% endblock %}
+{% block topbar_title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Visão geral</h1>
+        <p class="page-description">Acompanhe os principais indicadores do estoque.</p>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div>
+                    <div class="stat-label">Usuários</div>
+                    <div class="stat-value">{{ total_usuarios }}</div>
+                    <div class="stat-helper">cadastrados</div>
+                </div>
+                <div class="stat-icon icon-blue"><i class="bi bi-people"></i></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div>
+                    <div class="stat-label">Produtos</div>
+                    <div class="stat-value">{{ total_produtos }}</div>
+                    <div class="stat-helper">no catálogo</div>
+                </div>
+                <div class="stat-icon icon-green"><i class="bi bi-box-seam"></i></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div>
+                    <div class="stat-label">Estoque</div>
+                    <div class="stat-value">{{ estoque_total }}</div>
+                    <div class="stat-helper">itens disponíveis</div>
+                </div>
+                <div class="stat-icon icon-orange"><i class="bi bi-stack"></i></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div>
+                    <div class="stat-label">Atenção</div>
+                    <div class="stat-value">{{ produtos_baixo + sem_estoque }}</div>
+                    <div class="stat-helper">{{ produtos_baixo }} baixos · {{ sem_estoque }} zerados</div>
+                </div>
+                <div class="stat-icon icon-red"><i class="bi bi-exclamation-triangle"></i></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-7">
+        <div class="app-card h-100">
+            <div class="app-card-header">
+                <div>
+                    <h2 class="app-card-title">Ações rápidas</h2>
+                    <p class="app-card-subtitle">Acesse as operações mais utilizadas.</p>
+                </div>
+            </div>
+            <div class="app-card-body">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <a class="quick-action" href="{{ url_for('cadastrar_produto') }}">
+                            <span class="quick-action-icon"><i class="bi bi-plus-square"></i></span>
+                            <span><strong>Cadastrar produto</strong><small>Adicionar item ao estoque</small></span>
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a class="quick-action" href="{{ url_for('saida_produto') }}">
+                            <span class="quick-action-icon"><i class="bi bi-box-arrow-right"></i></span>
+                            <span><strong>Registrar saída</strong><small>Retirar quantidade do estoque</small></span>
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a class="quick-action" href="{{ url_for('cadastrar_usuario') }}">
+                            <span class="quick-action-icon"><i class="bi bi-person-plus"></i></span>
+                            <span><strong>Novo usuário</strong><small>Cadastrar acesso ao sistema</small></span>
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a class="quick-action" href="{{ url_for('listar_produtos') }}">
+                            <span class="quick-action-icon"><i class="bi bi-list-ul"></i></span>
+                            <span><strong>Ver produtos</strong><small>Consultar estoque atual</small></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <div class="app-card h-100">
+            <div class="app-card-header">
+                <div>
+                    <h2 class="app-card-title">Status do sistema</h2>
+                    <p class="app-card-subtitle">Informações do ambiente.</p>
+                </div>
+                <span class="badge text-bg-success">Online</span>
+            </div>
+            <div class="app-card-body">
+                <div class="status-row"><span>Framework</span><strong>Flask</strong></div>
+                <div class="status-row"><span>Interface</span><strong>Bootstrap 5</strong></div>
+                <div class="status-row"><span>Templates</span><strong>Jinja2</strong></div>
+                <div class="status-row"><span>Banco de dados</span><strong>SQLite</strong></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

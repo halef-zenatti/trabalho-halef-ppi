@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Novo produto | {{ app_name }}{% endblock %}
+{% block topbar_title %}Novo produto{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Cadastro de produto</h1>
+        <p class="page-description">Cadastre um produto e sua quantidade inicial.</p>
+    </div>
+    <a href="{{ url_for('listar_produtos') }}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i>Voltar
+    </a>
+</div>
+
+<form method="post" class="app-card overflow-hidden">
+    <div class="form-section">
+        <div class="form-section-title">
+            <span class="section-icon"><i class="bi bi-box-seam"></i></span>
+            <span><strong>Informações do produto</strong><small>O ID será gerado automaticamente</small></span>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-md-8">
+                <label class="form-label">Nome do produto <span class="required">*</span></label>
+                <input name="nome" class="form-control" placeholder="Ex.: Teclado sem fio" required>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Quantidade inicial <span class="required">*</span></label>
+                <input name="quantidade" type="number" min="0" class="form-control" value="0" required>
+            </div>
+            <div class="col-12">
+                <label class="form-label">Breve descrição</label>
+                <textarea name="descricao" class="form-control" rows="5" placeholder="Descreva brevemente o produto..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <a href="{{ url_for('listar_produtos') }}" class="btn btn-light border">Cancelar</a>
+        <button class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i>Cadastrar produto</button>
+    </div>
+</form>
+{% endblock %}

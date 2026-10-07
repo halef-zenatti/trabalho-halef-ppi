@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Usuários | {{ app_name }}{% endblock %}
+{% block topbar_title %}Usuários{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Usuários</h1>
+        <p class="page-description">Gerencie os usuários cadastrados no sistema.</p>
+    </div>
+    <a href="{{ url_for('cadastrar_usuario') }}" class="btn btn-primary">
+        <i class="bi bi-person-plus me-1"></i>Novo usuário
+    </a>
+</div>
+
+<div class="app-card overflow-hidden">
+    <div class="app-card-header">
+        <div>
+            <h2 class="app-card-title">Lista de usuários</h2>
+            <p class="app-card-subtitle">{{ usuarios|length }} registro(s) encontrado(s)</p>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th><th>Nome</th><th>E-mail</th><th>Telefone</th>
+                    <th>Perfil</th><th>Nascimento</th><th>Cidade/UF</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for usuario in usuarios %}
+                <tr>
+                    <td><span class="badge text-bg-light border">#{{ usuario["id"] }}</span></td>
+                    <td>
+                        <div class="table-person">
+                            <span class="table-avatar">{{ usuario["nome"][0]|upper }}</span>
+                            <strong>{{ usuario["nome"] }}</strong>
+                        </div>
+                    </td>
+                    <td>{{ usuario["email"] }}</td>
+                    <td>{{ usuario["telefone"] or "-" }}</td>
+                    <td>
+                        <span class="badge {{ 'text-bg-primary' if usuario['perfil'] == 'gestor' else 'text-bg-secondary' }}">
+                            {{ usuario["perfil"]|perfil }}
+                        </span>
+                    </td>
+                    <td>{{ usuario["data_nascimento"]|data_br or "-" }}</td>
+                    <td>{{ usuario["cidade"] or "-" }}{% if usuario["estado"] %}/{{ usuario["estado"] }}{% endif %}</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="7">
+                    <div class="empty-state">
+                        <div class="empty-state-icon"><i class="bi bi-people"></i></div>
+                        <h3>Nenhum usuário cadastrado</h3>
+                        <p>Comece cadastrando o primeiro usuário do sistema.</p>
+                        <a href="{{ url_for('cadastrar_usuario') }}" class="btn btn-primary">Cadastrar usuário</a>
+                    </div>
+                </td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Saída de produto | {{ app_name }}{% endblock %}
+{% block topbar_title %}Saída de produto{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Saída de produto</h1>
+        <p class="page-description">Informe o produto e a quantidade retirada do estoque.</p>
+    </div>
+    <a href="{{ url_for('listar_produtos') }}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i>Voltar
+    </a>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-xl-7 col-lg-8">
+        <form method="post" class="app-card overflow-hidden">
+            <div class="form-section">
+                <div class="form-section-title">
+                    <span class="section-icon section-icon-danger"><i class="bi bi-box-arrow-right"></i></span>
+                    <span><strong>Registrar movimentação</strong><small>A quantidade será subtraída do estoque</small></span>
+                </div>
+
+                <div class="alert alert-warning small">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    A quantidade informada não pode ser maior que o estoque disponível.
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">ID do produto <span class="required">*</span></label>
+                        <input name="id" type="number" min="1" class="form-control" placeholder="Ex.: 1" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Quantidade <span class="required">*</span></label>
+                        <input name="quantidade" type="number" min="1" class="form-control" placeholder="Ex.: 5" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <a href="{{ url_for('listar_produtos') }}" class="btn btn-light border">Cancelar</a>
+                <button class="btn btn-danger"><i class="bi bi-box-arrow-right me-1"></i>Registrar saída</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
