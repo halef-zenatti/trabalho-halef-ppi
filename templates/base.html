@@ -43,10 +43,6 @@
 
 {% if session.get('usuario_id') %}
 
-    <!-- ================================================= -->
-    <!-- MENU / ÁREA LOGADA                                -->
-    <!-- ================================================= -->
-
     {% set layout = 'sidebar' %}
 
     {% if layout == 'sidebar' %}
@@ -109,10 +105,6 @@
 
 {% else %}
 
-    <!-- ================================================= -->
-    <!-- ÁREA PÚBLICA                                      -->
-    <!-- ================================================= -->
-
     {% with messages = get_flashed_messages(
         with_categories=true
     ) %}
@@ -136,11 +128,6 @@
     {% endwith %}
 
 {% endif %}
-
-
-<!-- ===================================================== -->
-<!-- ÁREA PRINCIPAL                                       -->
-<!-- ===================================================== -->
 
 {% if session.get('usuario_id') or request.endpoint == 'cadastrar_usuario' %}
 
@@ -186,19 +173,12 @@
 
         {% endif %}
 
-
-        <!-- ÚNICO BLOCK CONTENT DO TEMPLATE -->
-
         {% block content %}{% endblock %}
 
     </main>
 
 
 {% else %}
-
-    <!-- ================================================= -->
-    <!-- LOGIN                                             -->
-    <!-- ================================================= -->
 
     {% block auth_content %}{% endblock %}
 
