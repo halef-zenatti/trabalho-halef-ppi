@@ -51,11 +51,6 @@ def init_db():
     conn.commit()
     conn.close()
 
-
-# =========================================================
-# AUTENTICAÇÃO
-# =========================================================
-
 def login_required(view):
     @wraps(view)
     def wrapper(*args, **kwargs):
@@ -68,15 +63,9 @@ def login_required(view):
 
     return wrapper
 
-
-# =========================================================
-# FILTROS JINJA
-# =========================================================
-
 @app.template_filter("perfil")
 def perfil_filter(value):
     return "Gestor" if value == "gestor" else "Usuário"
-
 
 @app.template_filter("data_br")
 def data_br(value):
@@ -91,11 +80,6 @@ def data_br(value):
     except ValueError:
         return value
 
-
-# =========================================================
-# VARIÁVEIS GLOBAIS DOS TEMPLATES
-# =========================================================
-
 @app.context_processor
 def global_context():
     return {
@@ -105,7 +89,6 @@ def global_context():
         "usuario_logado": session.get("usuario_nome"),
         "usuario_perfil": session.get("usuario_perfil"),
     }
-
 
 @app.context_processor
 def navigation():
@@ -120,11 +103,6 @@ def navigation():
         ]
     }
 
-
-# =========================================================
-# INÍCIO
-# =========================================================
-
 @app.route("/")
 def index():
 
@@ -132,11 +110,6 @@ def index():
         return redirect(url_for("dashboard"))
 
     return redirect(url_for("login"))
-
-
-# =========================================================
-# LOGIN
-# =========================================================
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -177,11 +150,6 @@ def login():
 
     return render_template("login.html")
 
-
-# =========================================================
-# LOGOUT
-# =========================================================
-
 @app.route("/logout")
 def logout():
 
@@ -190,11 +158,6 @@ def logout():
     flash("Você saiu do sistema.", "info")
 
     return redirect(url_for("login"))
-
-
-# =========================================================
-# DASHBOARD
-# =========================================================
 
 @app.route("/dashboard")
 @login_required
@@ -244,11 +207,6 @@ def dashboard():
         sem_estoque=sem_estoque,
     )
 
-
-# =========================================================
-# LISTA DE USUÁRIOS
-# =========================================================
-
 @app.route("/usuarios")
 @login_required
 def listar_usuarios():
@@ -269,18 +227,6 @@ def listar_usuarios():
         "usuarios/listar.html",
         usuarios=usuarios
     )
-
-
-# =========================================================
-# CADASTRO DE USUÁRIO
-#
-# IMPORTANTE:
-# Esta rota NÃO possui @login_required.
-#
-# Portanto, pode ser acessada:
-# 1. pela tela de login;
-# 2. pelo menu após o login.
-# =========================================================
 
 @app.route("/usuarios/novo", methods=["GET", "POST"])
 def cadastrar_usuario():
@@ -378,8 +324,6 @@ def cadastrar_usuario():
             conn.commit()
             conn.close()
 
-            # Se o cadastro foi feito sem login,
-            # volta para a tela de login.
             if "usuario_id" not in session:
 
                 flash(
@@ -390,8 +334,6 @@ def cadastrar_usuario():
 
                 return redirect(url_for("login"))
 
-            # Se o cadastro foi feito estando logado,
-            # volta para a lista de usuários.
             flash(
                 "Usuário cadastrado com sucesso.",
                 "success"
@@ -410,11 +352,6 @@ def cadastrar_usuario():
         "usuarios/cadastro.html",
         dados=dados
     )
-
-
-# =========================================================
-# PRODUTOS
-# =========================================================
 
 @app.route("/produtos")
 @login_required
@@ -437,10 +374,6 @@ def listar_produtos():
         produtos=produtos
     )
 
-
-# =========================================================
-# CADASTRO DE PRODUTO
-# =========================================================
 @app.route("/produtos/novo", methods=["GET", "POST"])
 @login_required
 def cadastrar_produto():
@@ -562,11 +495,6 @@ def cadastrar_produto():
         "produtos/cadastro.html"
     )
 
-
-# =========================================================
-# SAÍDA DE PRODUTO
-# =========================================================
-
 @app.route("/produtos/saida", methods=["GET", "POST"])
 @login_required
 def saida_produto():
@@ -670,11 +598,6 @@ def saida_produto():
     return render_template(
         "produtos/saida.html"
     )
-
-
-# =========================================================
-# EXECUÇÃO
-# =========================================================
 
 if __name__ == "__main__":
 
